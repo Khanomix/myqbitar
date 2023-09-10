@@ -5,12 +5,8 @@
 # docker_build_and_run_for_VPS.sh -c 8080 -p newpassword -u newusername
 
 
-while getopts ":u:p:c:" opt; do
+while getopts ":c:" opt; do
   case $opt in
-    u) username="$OPTARG"
-    ;;
-    p) password="$OPTARG"
-    ;;
     c) port="$OPTARG"
     ;;
     \?) echo "Invalid option -$OPTARG" >&2
@@ -35,4 +31,4 @@ docker images |head -2| tail -1 |sed 's/ /\n/g' |sed '/^$/d' |head -3| tail -1 >
 
 cd
 rm -r .devanaztempinstall
-docker run -td -e username="$username" -e password="$password" -p $port:8880 "$(docker images |head -2| tail -1 |sed 's/ /\n/g' |sed '/^$/d' |head -3| tail -1)"
+docker run -td -p $port:8880 "$(docker images |head -2| tail -1 |sed 's/ /\n/g' |sed '/^$/d' |head -3| tail -1)"
